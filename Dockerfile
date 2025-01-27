@@ -33,11 +33,16 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN composer install --optimize-autoloader --no-dev
+RUN composer install --optimize-autoloader --no-dev --prefer-dist
 
 COPY --from=node-stage /app /var/www
 
 RUN npm run prod
+
+RUN php artisan key:generate \
+    && php artisan config:cache \
+    && php artisan migrate --force \
+    && php artisan storage:link
 
 EXPOSE 9000
 
