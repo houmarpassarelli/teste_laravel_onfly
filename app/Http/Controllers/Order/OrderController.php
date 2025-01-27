@@ -52,19 +52,39 @@ class OrderController extends Controller
         return response()->json(['message' => 'Pedido enviado com sucesso!']);
     }
 
-    public function get($id = null)
+    public function fetch(Request $request)
     {
-        if ($id) {
-            $order = Order::find($id);
-    
-            if (!$order) {
-                return response()->json(['error' => 'Pedido não encontrado'], 404);
+
+        if(!empty($request->all())){
+
+            $departureDate = $request->input('departureDate');
+            $returnDate = $request->input('returnDate');
+            $state = $request->input('state');
+            $city = $request->input('city');
+
+            $query = Order::query();
+
+            if ($departureDate) {
+                $query->whereDate('departureDate', '>=', $departureDate);
             }
-    
-            return response()->json($order);
+
+            if ($returnDate) {
+                $query->whereDate('returnDate', '<=', $returnDate);
+            }
+
+            if ($state) {
+                $query->where('state', $state);
+            }
+
+            if ($city) {
+                $query->where('city', $city);
+            }
+
+            $orders = $query->orderBy('departureDate', 'asc')->get();
+
+            return response()->json($orders);
         }
-    
-        // Caso $id não seja fornecido, retorna todos os registros
+
         $orders = Order::all();
         return response()->json($orders);
     }
