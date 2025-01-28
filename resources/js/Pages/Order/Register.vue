@@ -75,13 +75,13 @@
           });
   
           if (response.ok) {
-            alert('Formulário enviado com sucesso!');
+            alert('Pedido enviado com sucesso!');
             this.resetForm();
           } else {
-            console.error('Erro ao enviar o formulário');
+            console.error('Erro ao enviar o pedido');
           }
         } catch (error) {
-          console.error('Erro na submissão do formulário:', error);
+          console.error('Erro no envio do pedido:', error);
         }
       },
       resetForm() {
@@ -104,9 +104,17 @@
   <template>
     <div class="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-teal-500">
       <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Formulário</h1>
+        <div class="flex justify-end mb-6">
+        <a
+          href="/logout"
+          class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+        >
+          Sair
+        </a>
+      </div>
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Registro de Pedido</h1>
         <form @submit.prevent="handleSubmit" @reset="resetForm" class="space-y-6">
-          <!-- Nome Completo -->
+
           <div>
             <label for="fullName" class="block text-sm font-semibold text-gray-700 mb-2">Nome Completo</label>
             <input
@@ -118,7 +126,7 @@
             />
           </div>
   
-          <!-- Estado -->
+
           <div>
             <label for="state" class="block text-sm font-semibold text-gray-700 mb-2">Estado</label>
             <input
@@ -136,7 +144,7 @@
             <p v-if="errors.state" class="text-red-500 text-xs mt-1">Esse campo deve ser preenchido</p>
           </div>
   
-          <!-- Cidade -->
+
           <div>
             <label for="city" class="block text-sm font-semibold text-gray-700 mb-2">Cidade</label>
             <input
@@ -154,7 +162,7 @@
             <p v-if="errors.city" class="text-red-500 text-xs mt-1">Esse campo deve ser preenchido</p>
           </div>
   
-          <!-- Data de Ida -->
+
           <div>
             <label for="departureDate" class="block text-sm font-semibold text-gray-700 mb-2">Data de Ida</label>
             <input
@@ -166,7 +174,7 @@
             <p v-if="errors.departureDate" class="text-red-500 text-xs mt-1">Esse campo deve ser preenchido</p>
           </div>
   
-          <!-- Data de Volta -->
+
           <div>
             <label for="returnDate" class="block text-sm font-semibold text-gray-700 mb-2">Data de Volta (Opcional)</label>
             <input
@@ -177,7 +185,7 @@
             />
           </div>
   
-          <!-- Botões -->
+
           <div class="flex space-x-4 justify-center">
             <button
               type="submit"

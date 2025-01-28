@@ -42,7 +42,8 @@ RUN npm run prod
 RUN php artisan key:generate \
     && php artisan config:cache \
     && php artisan migrate --force \
-    && php artisan storage:link
+    && php artisan storage:link \
+    && php artisan db:seed --class=UserSeeder
 
 EXPOSE 9000
 

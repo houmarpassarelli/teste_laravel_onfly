@@ -7,16 +7,28 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
-{
-    public function index()
+{   
+    public function index(ProfileUpdateRequest $request)
     {
         return Inertia::render('Order/Orders');
     }
     public function create()
     {
-        return Inertia::render('Order/Register');
+        $user = Auth::user();
+
+        if(!$user) {
+            return redirect('/login');
+        } else {
+            if($user->level != 'user') {
+                return redirect('/');
+            } else {
+                return Inertia::render('Order/Register');
+            }
+        }
     }
 
     public function show($id)
