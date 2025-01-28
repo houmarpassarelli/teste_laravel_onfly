@@ -24,3 +24,8 @@ Para executar no Docker localmente, basta executar o comando na raiz do projeto.
 # Execute o docker localmente 
 $ docker-compose up -d
 ```
+
+Após fazer a execução do dockerfile, vai ser criado um usuário admin com os seguintes dados:
+
+Email: admin@teste.com <br />
+Senha: 12345678
